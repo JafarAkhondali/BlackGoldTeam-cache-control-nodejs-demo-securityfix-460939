@@ -7,6 +7,11 @@ const fresh = require('fresh');
 
 const server = http.createServer(function (req, res) {
     let filePath, isHtml, isFresh;
+    if (path.normalize(decodeURIComponent(pathname)) !== decodeURIComponent(pathname)) {
+        res.statusCode = 403;
+        res.end();
+        return;
+    }
     const pathname = url.parse(req.url, true).pathname;
     //根据请求路径取文件绝对路径
     if (pathname === '/') {
